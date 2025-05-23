@@ -6,6 +6,12 @@ import javafx.stage.Stage;
 
 public class MainScreen {
 
+    private BankManager bankManager;
+
+    public MainScreen (BankManager bankManager){
+        this.bankManager = bankManager;
+    }
+
     public void start(Stage stage) {
 
         // Title
@@ -16,8 +22,13 @@ public class MainScreen {
         Button loginBtn = new Button("Log In");
 
         // Placeholder actions
-        createAccBtn.setOnAction(e -> System.out.println("Switch to account creation screen"));
-        loginBtn.setOnAction(e -> System.out.println("Switch to login screen"));
+        createAccBtn.setOnAction(e -> {
+            AccountCreationScreen accountScreen = new AccountCreationScreen(bankManager);
+            accountScreen.start(stage); //Switch to account creation screen
+        });
+
+        loginBtn.setOnAction(e -> new LoginScreen(bankManager).start(stage));
+
 
         // Layout
         VBox layout = new VBox(20);

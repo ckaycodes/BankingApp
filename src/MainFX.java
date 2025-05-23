@@ -5,12 +5,19 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.HashMap;
+
 public class MainFX extends Application {
+
+    HashMap<Integer, User> usersByID = new HashMap<>();
+    HashMap<String, Integer> usernameToID = new HashMap<>();
+
+    private BankManager bankManager = new BankManager(usersByID, usernameToID);
 
     @Override
     public void start(Stage primaryStage) {
 
-        MainScreen mainScreen = new MainScreen();
+        MainScreen mainScreen = new MainScreen(bankManager);
         mainScreen.start(primaryStage);
 
     }
