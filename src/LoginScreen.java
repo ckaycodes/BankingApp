@@ -24,20 +24,25 @@ public class LoginScreen {
         loginBtn.setOnAction(e -> {
             String username = usernameField.getText();
             String password = passwordField.getText();
+            try {
+                if (username.isEmpty() || password.isEmpty()) {
+                    showAlert("Please fill in both fields.");
+                    return;
+                }
 
-            if (username.isEmpty() || password.isEmpty()) {
-                showAlert("Please fill in both fields.");
-                return;
-            }
+                User user = bankManager.getUserByUsername(username);
 
-            User user = bankManager.getUserByUsername(username);
+                if (user != null && user.getPassword().equals(password)) {
+                    showAlert("Welcome back, " + username + "!");
+                    DashboardScreen dashboard = new DashboardScreen(bankManager, user);
+                    dashboard.start(stage);
+                } else
+                    showAlert("Invalid username or password.");
 
-            if (user != null && user.getPassword().equals(password)) {
-                showAlert("Welcome back, " + username + "!");
-                DashboardScreen dashboard = new DashboardScreen(bankManager, user);
-                dashboard.start(stage);
-            } else {
-                showAlert("Invalid username or password.");
+            } catch (Exception ex) {
+                ex.printStackTrace(); // logs error
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Something went wrong. Please try again.", ButtonType.OK);
+                alert.showAndWait();
             }
         });
 

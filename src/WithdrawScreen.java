@@ -5,22 +5,22 @@ import javafx.stage.Stage;
 import javafx.util.converter.FloatStringConverter;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-
 import java.util.function.UnaryOperator;
 
-public class DepositScreen {
+public class WithdrawScreen {
 
     private final BankManager bankManager;
     private final User user;
 
-    public DepositScreen(BankManager bankManager, User user) {
+    public WithdrawScreen(BankManager bankManager, User user) {
         this.bankManager = bankManager;
         this.user = user;
     }
 
     public void start(Stage stage) {
-        Label depositInputLabel = new Label("Amount: ");
-        TextField depositInput = new TextField();
+
+        Label withdrawInputLabel = new Label("Amount: ");
+        TextField withdrawInput = new TextField();
 
         // Set a TextFormatter to filter and format float input
         UnaryOperator<TextFormatter.Change> filter = change -> {
@@ -35,27 +35,33 @@ public class DepositScreen {
         };
 
         TextFormatter<Float> floatFormatter = new TextFormatter<>(new FloatStringConverter(), null, filter);
-        depositInput.setTextFormatter(floatFormatter);
+        withdrawInput.setTextFormatter(floatFormatter);
 
-        Button confirmDeposit = new Button("Confirm Deposit");
+        Button confirmWithdraw = new Button("Confirm Withdraw");
         Button backBtn = new Button("Back to Dashboard");
 
-        confirmDeposit.setOnAction(e -> {
+        confirmWithdraw.setOnAction(e -> {
             try {
-                depositInput.commitValue(); // ensure TextFormatter value is up to date
-                Float depositAmount = floatFormatter.getValue();
+                withdrawInput.commitValue(); // ensure TextFormatter value is up to date (finalize selected value)
+                Float withdrawAmount = floatFormatter.getValue();
 
-                if (depositAmount == null || depositAmount <= 0) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter a valid deposit amount.", ButtonType.OK);
+                if (withdrawAmount == null || withdrawAmount <= 0) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter a valid withdrawal amount.", ButtonType.OK);
                     alert.showAndWait();
                     return;
                 }
+                else if (withdrawAmount > user.getAccount().getBalance()) {
 
-                user.getAccount().deposit(depositAmount); //deposits amount to User's account
-                Transaction newTransaction = new Transaction(depositAmount,"Deposit"); //creates Transaction Object
-                user.getHistory().addTransaction(newTransaction); // adds Transaction Object to History
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Insufficient Funds.", ButtonType.OK);
+                    alert.showAndWait();
+                    return; // If number is very large, there is an instance where the user cannot delete the amount
+                }
 
-                new DepositSuccess(bankManager, user, depositAmount).start(stage);
+                user.getAccount().withDraw(withdrawAmount); //deposits amount to User's account
+                Transaction transaction = new Transaction(withdrawAmount, "Withdraw"); //creates Transaction Object
+                user.getHistory().addTransaction(transaction); //adds Transaction Object to History
+
+                new WithdrawSuccess(bankManager, user, withdrawAmount).start(stage);
 
             } catch (Exception ex) {
                 ex.printStackTrace(); // logs error
@@ -68,7 +74,7 @@ public class DepositScreen {
             new DashboardScreen(bankManager, user).start(stage);
         });
 
-        VBox layout = new VBox(15, depositInputLabel, depositInput, confirmDeposit, backBtn);
+        VBox layout = new VBox(15, withdrawInputLabel, withdrawInput, confirmWithdraw, backBtn);
         layout.setPadding(new Insets(20)); // spacing from edges
         layout.setAlignment(Pos.CENTER); // centers content
 

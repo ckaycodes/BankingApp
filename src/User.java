@@ -7,6 +7,7 @@ public class User  {
     private String userName;
     private String password;
     private Account account;
+    private TransactionHistory history;
 
 
     User(int ID, String userName, String password) {
@@ -17,7 +18,8 @@ public class User  {
         this.userID = ID;
         this.userName = userName;
         this.password = password;
-        this.account = new Account();
+        this.account = new Account(); // creates account automatically w/each user
+        this.history = new TransactionHistory(); // creates history automatically w/each user
     }
 
     User() {
@@ -38,6 +40,10 @@ public class User  {
 
     Account getAccount () {
         return account;
+    }
+
+    TransactionHistory getHistory() {
+        return history;
     }
 
 }
