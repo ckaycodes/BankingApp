@@ -7,7 +7,6 @@ public class User  {
     private String userName;
     private String password;
     private Account account;
-    private TransactionHistory history;
 
 
     // For creating new users (no ID yet)
@@ -16,7 +15,6 @@ public class User  {
         this.userName = userName;
         this.password = password;
         this.account = account;
-        this.history = new TransactionHistory();
         // userID will be set later after insertion
     }
 
@@ -30,7 +28,6 @@ public class User  {
         this.userName = userName;
         this.password = password;
         this.account = account;
-        this.history = new TransactionHistory();
     }
 
 
@@ -59,10 +56,6 @@ public class User  {
 
     Account getAccount () {
         return account;
-    }
-
-    TransactionHistory getHistory() {
-        return history;
     }
 
 }

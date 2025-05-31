@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 
-public class TransactionHistoryScreen extends TransactionHistory {
+public class TransactionHistoryScreen {
 
     private final User user;
     private final BankManager bankManager;
