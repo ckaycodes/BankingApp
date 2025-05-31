@@ -5,6 +5,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.HashMap;
 
 public class MainFX extends Application {
@@ -12,13 +14,24 @@ public class MainFX extends Application {
     HashMap<Integer, User> usersByID = new HashMap<>();
     HashMap<String, Integer> usernameToID = new HashMap<>();
 
-    private BankManager bankManager = new BankManager(usersByID, usernameToID);
-
     @Override
     public void start(Stage primaryStage) {
 
-        MainScreen mainScreen = new MainScreen(bankManager);
-        mainScreen.start(primaryStage);
+
+        try {
+            // 1. Connect to SQLite database (creates file if it doesn't exist)
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:bank.db");
+
+            // 2. Initialize BankManager with connection
+            BankManager bankManager = new BankManager(conn);
+
+            // 3. Launch GUI
+            MainScreen mainScreen = new MainScreen(bankManager);
+            mainScreen.start(primaryStage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

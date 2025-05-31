@@ -58,8 +58,8 @@ public class WithdrawScreen {
                 }
 
                 user.getAccount().withDraw(withdrawAmount); //deposits amount to User's account
-                Transaction transaction = new Transaction(withdrawAmount, "Withdraw"); //creates Transaction Object
-                user.getHistory().addTransaction(transaction); //adds Transaction Object to History
+                bankManager.updateUserBalance(user.getID(), user.getAccount().getBalance()); // update db with new balance
+                bankManager.addTransaction(user.getID(), withdrawAmount, "Withdraw"); // add transaction to db history
 
                 new WithdrawSuccess(bankManager, user, withdrawAmount).start(stage);
 

@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class AccountCreationScreen {
 
-    private BankManager bankManager;
+    private final BankManager bankManager;
 
     public AccountCreationScreen(BankManager bankManager) {
         this.bankManager = bankManager;
@@ -51,19 +51,14 @@ public class AccountCreationScreen {
                 return;
             }
 
-            // Generate unique ID
-            Random rand = new Random();
-            int ID;
-            do {
-                ID = 10000 + rand.nextInt(90000);
-            } while (bankManager.userExists(ID));
+            else {
+                // Create and store user
+                Account userAcc = new Account();
+                User newUser = new User(username, password,userAcc);
+                bankManager.addUser(newUser);
 
-            // Create and store user
-            User newUser = new User(ID, username, password);
-            bankManager.addUser(newUser);
-
-            new SuccessScreen(bankManager).start(stage, username); // displays success screen
-
+                new SuccessScreen(bankManager).start(stage, username); // displays success screen
+            }
         });
 
         // Clearing Fields

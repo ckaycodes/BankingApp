@@ -1,25 +1,28 @@
-public class Account extends User {
 
-    //attributes
-    private double balance;
+public class Account {
 
+    private float balance;
 
-    //constructor for Account Class
+    // Constructor for Account Class
     Account() {
-        balance = 100.0; //start with 100
+        balance = 0;
     }
 
+    // Constructor for BankManager
+    public Account(float initialBalance) {
+        this.balance = initialBalance;
+    }
 
-    //functions
-    void deposit(double cashIn) {
+    //Methods
+    void deposit(float cashIn) {
         balance += cashIn;
     }
 
-    void withDraw(double cashOut) {
+    void withDraw(float cashOut) {
         balance -= cashOut;
     }
 
-    double getBalance() {
+    float getBalance() {
         return balance;
     }
 

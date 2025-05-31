@@ -39,8 +39,8 @@ public class TransactionHistoryScreen extends TransactionHistory {
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         tableView.getColumns().add(typeColumn);
 
-        // Add the transactions
-        tableView.getItems().addAll(user.getHistory().getTransactions());
+
+        tableView.getItems().addAll(bankManager.getTransactionsForUser(user.getID()));
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); //Fit columns to table width
 
         //back button logic

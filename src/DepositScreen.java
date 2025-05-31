@@ -52,9 +52,11 @@ public class DepositScreen {
                 }
 
                 user.getAccount().deposit(depositAmount); //deposits amount to User's account
-                Transaction newTransaction = new Transaction(depositAmount,"Deposit"); //creates Transaction Object
-                user.getHistory().addTransaction(newTransaction); // adds Transaction Object to History
+                bankManager.updateUserBalance(user.getID(), user.getAccount().getBalance()); // update db with new balance
+                bankManager.addTransaction(user.getID(), depositAmount, "Deposit"); // add transaction to db history
 
+
+                
                 new DepositSuccess(bankManager, user, depositAmount).start(stage);
 
             } catch (Exception ex) {

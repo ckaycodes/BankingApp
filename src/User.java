@@ -3,27 +3,46 @@ import java.util.Scanner;
 
 public class User  {
 
-    private int userID;
+    private int userId;
     private String userName;
     private String password;
     private Account account;
     private TransactionHistory history;
 
 
-    User(int ID, String userName, String password) {
-        if (ID < 10000 || ID > 99999) {
-            throw new IllegalArgumentException("ID Generation Error");
-        }
-
-        this.userID = ID;
+    // For creating new users (no ID yet)
+    public User(String userName, String password, Account account) {
+        this.userId = -1;
         this.userName = userName;
         this.password = password;
-        this.account = new Account(); // creates account automatically w/each user
-        this.history = new TransactionHistory(); // creates history automatically w/each user
+        this.account = account;
+        this.history = new TransactionHistory();
+        // userID will be set later after insertion
     }
 
-    User() {
+    // For loading users from DB (ID is known)
+    public User(int id, String userName, String password, Account account) {
+        if (id <= 0) {
+            throw new IllegalArgumentException("ID must be a positive number.");
+        }
 
+        this.userId = id;
+        this.userName = userName;
+        this.password = password;
+        this.account = account;
+        this.history = new TransactionHistory();
+    }
+
+
+
+
+    // updates ID to value retrieved from database
+    public void setID(int userID) {
+        if (userID <= 0) {
+            throw new IllegalArgumentException("ID must be a positive number.");
+        }
+
+        this.userId = userID;
     }
 
     String getUsername () {
@@ -35,7 +54,7 @@ public class User  {
     }
 
     int getID () {
-        return userID;
+        return userId;
     }
 
     Account getAccount () {

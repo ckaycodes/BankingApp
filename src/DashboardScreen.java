@@ -27,7 +27,7 @@ public class DashboardScreen {
         // Add button actions (these can open new screens or dialogs)
         depositBtn.setOnAction(e -> {
             new DepositScreen(bankManager, currentUser).start(stage);
-            // future: show deposit dialog or screen
+
         });
 
         withdrawBtn.setOnAction(e -> {

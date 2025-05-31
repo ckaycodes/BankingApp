@@ -36,9 +36,9 @@ public class LoginScreen {
                     showAlert("Welcome back, " + username + "!");
                     DashboardScreen dashboard = new DashboardScreen(bankManager, user);
                     dashboard.start(stage);
-                } else
+                } else {
                     showAlert("Invalid username or password.");
-
+                }
             } catch (Exception ex) {
                 ex.printStackTrace(); // logs error
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Something went wrong. Please try again.", ButtonType.OK);
