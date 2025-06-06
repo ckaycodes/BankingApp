@@ -76,7 +76,8 @@ public class DepositScreen {
 
         Scene scene = new Scene(layout, 400, 300);
         stage.setScene(scene);
+        scene.getStylesheets().add(getClass().getResource("/styling.css").toExternalForm());
         stage.setTitle("Deposit");
-        stage.show();
+        stage.setFullScreen(true);
     }
 }

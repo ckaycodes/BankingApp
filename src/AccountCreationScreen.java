@@ -1,3 +1,5 @@
+import com.sun.tools.javac.Main;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -15,16 +17,18 @@ public class AccountCreationScreen {
 
     public void start(Stage stage) {
 
-
         // Labels and input fields
         Label userLabel = new Label("Username: ");
         TextField usernameField = new TextField();
+        usernameField.setMaxWidth(400);
 
         Label passLabel = new Label("Password: ");
         PasswordField passwordField = new PasswordField();
+        passwordField.setMaxWidth(400);
 
         Label confirmLabel = new Label("Confirm Password: ");
         PasswordField confirmPasswordField = new PasswordField();
+        confirmPasswordField.setMaxWidth(400);
 
         // Buttons
         Button createBtn = new Button("Create Account");
@@ -73,7 +77,7 @@ public class AccountCreationScreen {
         });
 
         // Layout
-        VBox layout = new VBox(10);
+        VBox layout = new VBox(20);
         layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
         layout.getChildren().addAll(
                 userLabel, usernameField,
@@ -83,10 +87,11 @@ public class AccountCreationScreen {
         );
 
         // Scene
-        Scene scene = new Scene(layout, 400, 400);
+        Scene scene = new Scene(layout, 400, 600);
         stage.setScene(scene);
         stage.setTitle("Create New Account");
-        stage.show();
+        scene.getStylesheets().add(getClass().getResource("/styling.css").toExternalForm());
+        stage.setFullScreen(true);
     }
 
     // Alert message

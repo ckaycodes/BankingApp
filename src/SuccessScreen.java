@@ -26,6 +26,5 @@ public class SuccessScreen {
 
         Scene scene = new Scene(layout, 400, 300);
         stage.setScene(scene);
-        stage.show();
     }
 }

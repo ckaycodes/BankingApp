@@ -14,9 +14,11 @@ public class LoginScreen {
     public void start(Stage stage) {
         Label userLabel = new Label("Username:");
         TextField usernameField = new TextField();
+        usernameField.setMaxWidth(150);
 
         Label passLabel = new Label("Password:");
         PasswordField passwordField = new PasswordField();
+        passwordField.setMaxWidth(150);
 
         Button loginBtn = new Button("Log In");
         Button backBtn = new Button("Back to Main Menu");
@@ -50,14 +52,15 @@ public class LoginScreen {
             new MainScreen(bankManager).start(stage);
         });
 
-        VBox layout = new VBox(10);
+        VBox layout = new VBox(20);
         layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
         layout.getChildren().addAll(userLabel, usernameField, passLabel, passwordField, loginBtn, backBtn);
 
         Scene scene = new Scene(layout, 400, 300);
+        scene.getStylesheets().add(getClass().getResource("/styling.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("Login");
-        stage.show();
+        stage.setFullScreen(true);
 
     }
 
