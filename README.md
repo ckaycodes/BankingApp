@@ -1,6 +1,6 @@
 #  ChanBank
 
-A simple desktop banking application built with Java and JavaFX.  
+A simple desktop banking application built with Java, JavaFX, and SQLite.  
 This project simulates basic banking functionality, such as account creation, login, and transaction management, all wrapped in a clean UI with a cozy coffee-themed logo.
 
 ---
